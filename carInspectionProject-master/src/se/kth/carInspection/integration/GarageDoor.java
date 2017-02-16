@@ -1,4 +1,4 @@
-package se.kth.carInspection.integration;
+package com.company;
 
 /**
  * Write a description of class GarageDoor here.
