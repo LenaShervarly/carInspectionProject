@@ -1,5 +1,4 @@
-package se.kth.carInspection.model;
-=======
+package com.company;
 
 /**
  * Write a description of class Garage here.
