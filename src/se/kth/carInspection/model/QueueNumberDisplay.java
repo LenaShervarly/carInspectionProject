@@ -1,11 +1,11 @@
-package com.company;
+package se.kth.carInspection.model;
 /**
  * Write a description of class QueueNumberDisplay here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class QueueNumqberDisplay
+public class QueueNumberDisplay
 {
     private int currentNumber;
     

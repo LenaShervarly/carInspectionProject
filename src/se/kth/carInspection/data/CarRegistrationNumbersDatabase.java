@@ -1,23 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package se.kth.carInspection.data;
 import java.util.HashMap;
 
 /**
- *
- * @author tmpuser-10206
+ * Represents a sample external database for registration numbers of the car and their types
+ * @author Lena Shervarly
+ * @version 0.1
  */
 public class CarRegistrationNumbersDatabase {
     private HashMap<String, String> registrationNumbers;
     
+    /**
+     * Creates a sample external database for registration numbers of the car and their types, filling the database with data
+     */
     public CarRegistrationNumbersDatabase(){
         registrationNumbers = new HashMap<>();
         fillTheRegister();
     }
     
+    /**
+     * Filling the database with data: 
+     * Key represents "the registration number" 
+     * Value represents "Type of the car"
+     */
     private void fillTheRegister() {
         registrationNumbers.put("A12", "Volvo");
         registrationNumbers.put("A23", "Saab");
@@ -26,12 +31,24 @@ public class CarRegistrationNumbersDatabase {
         registrationNumbers.put("B45", "Tesla");
         registrationNumbers.put("B16", "Saab");    
     }
-    public boolean checkTheRegister(String regNo){
-        if(registrationNumbers.containsKey(regNo))
+    
+    /**
+     * Check if <code>registrationNumber</code> is available in the database
+     * @param registrationNumber the registration number of the car
+     * @return 
+     */
+    public boolean checkTheRegister(String registrationNumber){
+        if(registrationNumbers.containsKey(registrationNumber))
             return true;
         else
             return false;
     }
+    
+    /**
+     * Provides the type of the car on the base of it registration number
+     * @param registrationNumber the registration number of the car
+     * @return 
+     */
     public String getCarType(String registrationNumber) {
         return registrationNumbers.get(registrationNumber);
     }

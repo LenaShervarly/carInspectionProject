@@ -1,4 +1,4 @@
-package com.company;
+package se.kth.carInspection.integration;
 /**
  * Write a description of class Vehicle here.
  * 

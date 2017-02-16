@@ -1,4 +1,4 @@
-package com.company;
+package se.kth.carInspection.controller;
 /**
  * Write a description of class InspectorDTO here.
  * 

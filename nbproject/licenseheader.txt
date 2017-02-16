@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Public university project.
+${licensePrefix}
+<#if licenseLast??>
+${licenseLast}
+</#if>

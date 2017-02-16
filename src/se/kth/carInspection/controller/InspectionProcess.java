@@ -6,22 +6,23 @@
 package se.kth.carInspection.controller;
 import se.kth.carInspection.integration.ExternalCheckingRegNoSystem;
 import se.kth.carInspection.integration.InspectionRegistry;
-import se.kth.carInspection.integration.InspectionDTO;
+import se.kth.carInspection.data.InspectionDTO;
 import java.util.ArrayList;
-import se.kth.carInspection.integration.InspectionResultCollection;
+import se.kth.carInspection.model.InspectionResultCollection;
 /**
  *
  * @author tmpuser-10206
  */
 public class InspectionProcess {
-    ExternalCheckingRegNoSystem checkingRegNo;
-    InspectionRegistry registry;
-    ArrayList<InspectionDTO> specifiedInspectionsForVehicle;
+    private InspectorDTO inspectorWhoLogsIn;
+    private ExternalCheckingRegNoSystem checkingRegNo;
+    private InspectionRegistry registry;
+    private ArrayList<InspectionDTO> specifiedInspectionsForVehicle;
     
-    public InspectionProcess() {
+    public InspectionProcess(InspectorDTO inspector) {
+        inspectorWhoLogsIn = inspector;
         checkingRegNo = new ExternalCheckingRegNoSystem();
         registry = new InspectionRegistry();
-        
     }
     public boolean enterVehicleRegNumber(String vehicleRegNo){
         if(checkingRegNo.getApprovalOfTheCarRegNo(vehicleRegNo))
