@@ -1,10 +1,10 @@
 package com.company;
 
 /**
- * Write a description of class GarageDoor here.
+ * This class checks if the door is open or closed.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author valentina
+ * @version 0.1 2017/02/14
  */
 public class GarageDoor
 {
@@ -16,17 +16,28 @@ public class GarageDoor
     {
         this.isOpened = isOpened;
     }
-    
+
+    /**
+     * This method returns the status of the door
+     * @return isOpened
+     */
+
     public boolean getIsOpened()
     {
         return isOpened;
     }
-    
+
+    /**
+     * If the door is open, then returns true
+     */
     public void open()
     {
         isOpened = true;
     }
-    
+
+    /**
+     * If the door is closed returns false
+     */
     public void close()
     {
         isOpened = false;
