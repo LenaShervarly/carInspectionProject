@@ -4,6 +4,7 @@ import se.kth.carInspection.data.InspectionDTO;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import se.kth.carInspection.data.InspectionRegistriesCollection;
 import se.kth.carInspection.integration.InspectionRegistry;
 /**
  * The collection of the results of inspections provided by inspector for one car
@@ -12,7 +13,8 @@ import se.kth.carInspection.integration.InspectionRegistry;
  */
 public class InspectionResultCollection {
     private HashMap<InspectionDTO, Boolean> results;
-    private InspectionRegistry inspectionRegistry;
+    private InspectionRegistriesCollection inspectionRegistryCollection;
+    private ArrayList<InspectionDTO> inspectionCollection;
     
     /**
      * Creates the collection of the inspections' results
@@ -20,8 +22,10 @@ public class InspectionResultCollection {
      */
     public InspectionResultCollection(String carType) {
         results = new HashMap<>();
-        inspectionRegistry = new InspectionRegistry(carType);
-        ArrayList<InspectionDTO> inspectionCollection = inspectionRegistry.getInspectionCollection();
+        inspectionRegistryCollection = new InspectionRegistriesCollection();
+        
+        if(inspectionRegistryCollection.checkAvailability(carType))
+           inspectionCollection = inspectionRegistryCollection.getInspectionCollection(carType);
         
         for(int i = 0; i< inspectionCollection.size(); i++)
            results.put(inspectionCollection.get(i), false);

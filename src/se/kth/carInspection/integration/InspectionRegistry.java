@@ -19,8 +19,13 @@ public class InspectionRegistry {
      * @param carType The type of the car for wich the collection of inspections is assigned.
      */    
     public InspectionRegistry(String carType){
-        inspectionCollection = new ArrayList<>();
-        carType = carType;
+         if(!carType.equals(null)) {
+            inspectionCollection = new ArrayList<>();
+            fillInspectionRegistry();
+            carType = carType;
+         }
+         else 
+             throw new IllegalArgumentException("Type in the type of the car");
     }
     
     /**
@@ -28,8 +33,8 @@ public class InspectionRegistry {
      * @param newInspection The new inspection for the specified car
      */
     public void setInspectioCollectio(InspectionDTO newInspection) {
-        inspectionCollection.add(newInspection);
-        carType = carType;
+        if(!newInspection.equals(null))
+            inspectionCollection.add(newInspection);      
     }
     
      /**
@@ -47,6 +52,18 @@ public class InspectionRegistry {
      */
     public String getCarType() {
         return carType;
-    }    
-    
+    }
+
+    /**
+     * Filling the Inspection registry with sample basic inspectionChecks basing on the description and cost of every inspection
+     */    
+    private void fillInspectionRegistry() {
+        InspectionDTO inspectionWheel = new InspectionDTO("Inspecting the wheels", 150);
+        InspectionDTO inspectionMotor = new InspectionDTO("Inspecting the motor", 350);
+        InspectionDTO inspectionDoors = new InspectionDTO("Inspecting the doors", 200);
+        
+        inspectionCollection.add(inspectionDoors);
+        inspectionCollection.add(inspectionMotor);
+        inspectionCollection.add(inspectionWheel);
+    }
 }

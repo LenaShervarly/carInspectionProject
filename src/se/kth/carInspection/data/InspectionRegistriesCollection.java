@@ -24,6 +24,7 @@ public class InspectionRegistriesCollection {
      */
     public InspectionRegistriesCollection() {
         inspectionRegistryCollection = new HashMap<>();
+        fillSampleCollection();
     }
     
     /**
@@ -35,18 +36,52 @@ public class InspectionRegistriesCollection {
     }
     
     /**
+     * Get the list of all the inspections for the specified car type
+     * @param carType the type of the car, the list of inspections should be found for
+     * @return the list of all the inspections for the specified car type
+     */
+    public ArrayList<InspectionDTO> getInspectionCollection(String carType){
+        if(inspectionRegistryCollection.containsKey(carType))
+            return inspectionRegistryCollection.get(carType);
+        else 
+            throw new IllegalArgumentException("Type the car is now valid. Type the right one");
+    }
+    
+    /**
+     * Checks whether the car type is registred in the collection
+     * @param carType the type of the car, whose presense in the register we are checking
+     */
+    public boolean checkAvailability(String carType) {
+        if(inspectionRegistryCollection.containsKey(carType))
+            return true;
+        else 
+            return false;
+    }
+    
+    /**
      * Fills the Collection of Inspection registries with sample data
      */
     private void fillSampleCollection() {
-        InspectionRegistry InspectionRegistryLine1 = new InspectionRegistry("Volvo");
-        InspectionRegistry InspectionRegistryLine2 = new InspectionRegistry("Saab");
-        InspectionRegistry InspectionRegistryLine3 = new InspectionRegistry("Toyota");
-        InspectionRegistry InspectionRegistryLine4 = new InspectionRegistry("Tesla");
-        InspectionRegistry InspectionRegistryLine5 = new InspectionRegistry("Mers");
-        InspectionRegistry InspectionRegistryLine6 = new InspectionRegistry("BMV");
-        InspectionRegistry InspectionRegistryLine7 = new InspectionRegistry("Smart");
-        InspectionRegistry InspectionRegistryLine8 = new InspectionRegistry("Lanos");
-        InspectionRegistry InspectionRegistryLine9 = new InspectionRegistry("Honda");
-        InspectionRegistry InspectionRegistryLine10 = new InspectionRegistry("Other");
+        InspectionRegistry inspectionRegistryLine1 = new InspectionRegistry("Volvo");
+        InspectionRegistry inspectionRegistryLine2 = new InspectionRegistry("Saab");
+        InspectionRegistry inspectionRegistryLine3 = new InspectionRegistry("Toyota");
+        InspectionRegistry inspectionRegistryLine4 = new InspectionRegistry("Tesla");
+        InspectionRegistry inspectionRegistryLine5 = new InspectionRegistry("Mers");
+        InspectionRegistry inspectionRegistryLine6 = new InspectionRegistry("BMV");
+        InspectionRegistry inspectionRegistryLine7 = new InspectionRegistry("Smart");
+        InspectionRegistry inspectionRegistryLine8 = new InspectionRegistry("Lanos");
+        InspectionRegistry inspectionRegistryLine9 = new InspectionRegistry("Honda");
+        InspectionRegistry inspectionRegistryLine10 = new InspectionRegistry("Other");
+        
+        inspectionRegistryCollection.put(inspectionRegistryLine1.getCarType(), inspectionRegistryLine1.getInspectionCollection());
+        inspectionRegistryCollection.put(inspectionRegistryLine2.getCarType(), inspectionRegistryLine2.getInspectionCollection());
+        inspectionRegistryCollection.put(inspectionRegistryLine3.getCarType(), inspectionRegistryLine3.getInspectionCollection());
+        inspectionRegistryCollection.put(inspectionRegistryLine4.getCarType(), inspectionRegistryLine4.getInspectionCollection());
+        inspectionRegistryCollection.put(inspectionRegistryLine5.getCarType(), inspectionRegistryLine5.getInspectionCollection());
+        inspectionRegistryCollection.put(inspectionRegistryLine6.getCarType(), inspectionRegistryLine6.getInspectionCollection());
+        inspectionRegistryCollection.put(inspectionRegistryLine7.getCarType(), inspectionRegistryLine7.getInspectionCollection());
+        inspectionRegistryCollection.put(inspectionRegistryLine8.getCarType(), inspectionRegistryLine8.getInspectionCollection());
+        inspectionRegistryCollection.put(inspectionRegistryLine9.getCarType(), inspectionRegistryLine9.getInspectionCollection());
+        inspectionRegistryCollection.put(inspectionRegistryLine10.getCarType(), inspectionRegistryLine10.getInspectionCollection());
     }
 }

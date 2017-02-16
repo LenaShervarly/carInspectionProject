@@ -50,6 +50,9 @@ public class CarRegistrationNumbersDatabase {
      * @return 
      */
     public String getCarType(String registrationNumber) {
-        return registrationNumbers.get(registrationNumber);
+        if(registrationNumbers.containsKey(registrationNumber))
+            return registrationNumbers.get(registrationNumber);
+        else
+            throw new IllegalArgumentException("The registration number is not valid. Try again");
     }
 }

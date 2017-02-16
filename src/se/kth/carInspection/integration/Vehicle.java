@@ -20,7 +20,7 @@ public class Vehicle
     /**
      *
      */
-    public String getLicenseNumber()
+    public String getRegistrationNumber()
     {
         return licenseNumber;
     }
