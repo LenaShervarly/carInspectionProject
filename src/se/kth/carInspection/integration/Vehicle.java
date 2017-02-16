@@ -1,4 +1,4 @@
-package com.company;
+package se.kth.carInspection.integration;
 /**
  * Vehicle class give information about the vehicle that has to be inspected
  * 
@@ -21,7 +21,7 @@ public class Vehicle
      * Accessor method for returning the license number
      * @return licenseNumber It returns the license number
      */
-    public String getLicenseNumber()
+    public String getRegistrationNumber()
     {
         return licenseNumber;
     }
