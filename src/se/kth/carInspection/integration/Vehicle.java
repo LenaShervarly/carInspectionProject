@@ -1,16 +1,16 @@
 package com.company;
 /**
- * Write a description of class Vehicle here.
+ * Vehicle class give information about the vehicle that has to be inspected
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author valentina
+ * @version 0.1 2017/02/14
  */
 public class Vehicle
 {
     private String licenseNumber;
 
     /**
-     * Constructor for objects of class Vehicle
+     * Constructor for objects of class Vehicle that initialize the license number of the class
      */
     public Vehicle(String licenseNumber)
     {
@@ -18,7 +18,8 @@ public class Vehicle
     }
 
     /**
-     *
+     * Accessor method for returning the license number
+     * @return licenseNumber It returns the license number
      */
     public String getLicenseNumber()
     {

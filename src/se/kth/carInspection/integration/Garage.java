@@ -1,10 +1,16 @@
 package com.company;
 
 /**
- * Write a description of class Garage here.
+ * This class is an interface to the control system opening the
+
+ * door and also to the queue number display. The constructor connects to the door and
+
+ * display, closes the door and shows the number zero. The method nextCustomer opens
+
+ * the door and displays the next queue number. The method closeDoor closes the door.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author valentina
+ * @version 0.1 2017/02/14
  */
 public class Garage
 {
@@ -20,7 +26,7 @@ public class Garage
     }
 
     /**
-     *
+     * This method opens the door and displays the next queue number
      */
     public void nextCustomer()
     {
@@ -28,6 +34,10 @@ public class Garage
         display.incrementCurrentNumber();
         System.out.println("Current customer number is: " + display.getCurrentNumber());
     }
+
+    /**
+     * This method closes the door
+     */
     
     public void closeDoor()
     {
