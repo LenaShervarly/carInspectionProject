@@ -1,6 +1,10 @@
-package controller;
+package se.kth.carInspection.controller;
 
 import org.junit.Test;
+import se.kth.carInspection.model.GarageDoor;
+import se.kth.carInspection.model.QueueNumberDisplay;
+
+import static org.junit.Assert.*;
 
 
 public class ControllerTest {
