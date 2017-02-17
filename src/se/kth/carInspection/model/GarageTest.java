@@ -1,8 +1,7 @@
-package model;
+package se.kth.carInspection.model;
 
 import org.junit.Test;
-
-
+import static org.junit.Assert.*;
 
 public class GarageTest {
 

@@ -6,7 +6,6 @@ import se.kth.carInspection.data.*;
 import java.util.ArrayList;
 
 public class CashPayment {
-
     private int amountPaid;
     private int totalCost;
     private CashRegistry cashRegistry;
