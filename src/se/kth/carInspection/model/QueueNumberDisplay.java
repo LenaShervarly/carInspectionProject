@@ -1,5 +1,5 @@
 package se.kth.carInspection.model;
-=======
+
 
 /**
  * QueueNumberDisplay class shows the current and next number of the customer

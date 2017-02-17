@@ -1,4 +1,5 @@
-package model;
+
+package se.kth.carInspection.model;
 
 /**
  * This class is an interface to the control system opening the
