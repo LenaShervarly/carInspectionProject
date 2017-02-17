@@ -2,10 +2,10 @@ package se.kth.carInspection.model;
 
 
 /**
- * Write a description of class QueueNumberDisplay here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * QueueNumberDisplay class shows the current and next number of the customer
+ *
+ * @author valentina
+ * @version 0.1 2017/02/14
  */
 public class QueueNumberDisplay
 {
@@ -18,12 +18,19 @@ public class QueueNumberDisplay
     {
         currentNumber = currentQueueNumber;
     }
-    
+
+    /**
+     * Accessor method for current number
+     * @return currentNumber The current number on the display
+     */
     public int getCurrentNumber()
     {
         return currentNumber;
     }
-    
+
+    /**
+     * Increments the current number on the display
+     */
     public void incrementCurrentNumber()
     {
         currentNumber++;

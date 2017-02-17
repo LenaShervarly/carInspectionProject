@@ -7,7 +7,7 @@ import se.kth.carInspection.model.GarageDoor;
 import se.kth.carInspection.model.QueueNumberDisplay;
 
 /**
- * The Contoller class gives information about the
+ * The Controller class gives information about the
  *
  * @author valentina
  * @version 0.1 2017/02/16
@@ -16,19 +16,18 @@ public class Controller
 {
     private Printer printer;
     private ExternalPaymentAuthorizationSystem paymentAuthorization;
-    private CashRegistry cashReg;
     private InspectionProcess inspectionProcess;
-    private GarageDoor door;
-    private QueueNumberDisplay display;
+    private Garage garage;
 
     /**
      * Constructor for objects of class Contoller that is initializing the
      */
-    public Controller(Printer printer, ExternalPaymentAuthorizationSystem paymentAuthorization,CashRegistry cashReg)
+
+    public Controller(Printer printer, ExternalPaymentAuthorizationSystem paymentAuthorization, Garage garage)
     {
         this.printer = printer;
         this.paymentAuthorization = paymentAuthorization;
-        this.cashReg = cashReg;
+        this.garage = garage;
     }
 
     /**
