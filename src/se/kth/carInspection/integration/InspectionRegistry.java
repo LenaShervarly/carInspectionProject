@@ -20,9 +20,10 @@ public class InspectionRegistry {
      */    
     public InspectionRegistry(String carType){
          if(!carType.equals(null)) {
+            this.carType = carType;
             inspectionCollection = new ArrayList<>();
             fillInspectionRegistry();
-            carType = carType;
+
          }
          else 
              throw new IllegalArgumentException("Type in the type of the car");
@@ -32,7 +33,7 @@ public class InspectionRegistry {
      * Enables to fill the registry with the inspections for the type of a car, specified during the creation of this particular registry.
      * @param newInspection The new inspection for the specified car
      */
-    public void setInspectioCollectio(InspectionDTO newInspection) {
+    public void setInspectioCollection(InspectionDTO newInspection) {
         if(!newInspection.equals(null))
             inspectionCollection.add(newInspection);      
     }

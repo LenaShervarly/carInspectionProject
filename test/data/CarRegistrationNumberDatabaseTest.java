@@ -14,7 +14,7 @@ import se.kth.carInspection.data.CarRegistrationNumbersDatabase;
 
 /**
  *
- * @author tmpuser-10206
+ * @author Lena Shervarly
  */
 public class CarRegistrationNumberDatabaseTest {
     
@@ -43,9 +43,5 @@ public class CarRegistrationNumberDatabaseTest {
         assertEquals("Couldn't properly receive the type of the car", "Tesla", database.getCarType("B45"));
         
     }
-// TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+
 }

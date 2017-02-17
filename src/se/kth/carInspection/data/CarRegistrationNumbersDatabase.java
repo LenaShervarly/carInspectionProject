@@ -17,7 +17,15 @@ public class CarRegistrationNumbersDatabase {
         registrationNumbers = new HashMap<>();
         fillTheRegister();
     }
-    
+
+    /**
+     * Filling the database with new <code>regNo</code> and their relevant <code>carType</code>
+     * @param regNo registration number of the car
+     * @param carType type of the car
+     */
+    public void addingLinesToDatabase(String regNo, String carType) {
+        registrationNumbers.put(regNo, carType);
+    }
     /**
      * Filling the database with data: 
      * Key represents "the registration number" 

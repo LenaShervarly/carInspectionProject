@@ -1,11 +1,18 @@
+/*
+ * Public university project.
+ * 
+ */
 package se.kth.carInspection.controller;
 
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import se.kth.carInspection.model.GarageDoor;
 import se.kth.carInspection.model.QueueNumberDisplay;
 
 import static org.junit.Assert.*;
-
 
 public class ControllerTest {
 
@@ -17,7 +24,7 @@ public class ControllerTest {
         assertEquals(1, display.getCurrentNumber());
 
 
-    } 
+    }
 
     @Test
     public void testCloseGarageDoor() throws Exception {
@@ -29,4 +36,5 @@ public class ControllerTest {
 
 
     }
+
 }
