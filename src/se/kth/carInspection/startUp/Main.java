@@ -25,9 +25,9 @@ public class Main {
         ExternalPaymentAuthorizationSystem externalAuthorSyst = new ExternalPaymentAuthorizationSystem();
         ExternalCheckingRegNoSystem externalRegNoSystem = new ExternalCheckingRegNoSystem();
         Garage garage= new Garage();
-        Controller controller = new Controller(printer, externalAuthorSyst, cashRegister); 
-       
+        Controller controller = new Controller(printer, externalAuthorSyst, garage); 
         
+               
         View view = new View(controller);
         
         

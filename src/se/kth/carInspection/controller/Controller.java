@@ -3,6 +3,7 @@ package se.kth.carInspection.controller;
 import se.kth.carInspection.integration.CashRegistry;
 import se.kth.carInspection.integration.ExternalPaymentAuthorizationSystem;
 import se.kth.carInspection.integration.Printer;
+import se.kth.carInspection.model.Garage;
 import se.kth.carInspection.model.GarageDoor;
 import se.kth.carInspection.model.QueueNumberDisplay;
 
@@ -18,6 +19,8 @@ public class Controller
     private ExternalPaymentAuthorizationSystem paymentAuthorization;
     private InspectionProcess inspectionProcess;
     private Garage garage;
+    private GarageDoor door;
+    private QueueNumberDisplay display;
 
     /**
      * Constructor for objects of class Contoller that is initializing the
@@ -28,6 +31,9 @@ public class Controller
         this.printer = printer;
         this.paymentAuthorization = paymentAuthorization;
         this.garage = garage;
+        door = new GarageDoor(false);
+        display = new QueueNumberDisplay(0);
+        
     }
 
     /**
