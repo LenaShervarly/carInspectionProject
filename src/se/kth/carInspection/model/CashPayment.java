@@ -2,6 +2,7 @@ package se.kth.carInspection.model;
 
 import se.kth.carInspection.integration.*;
 import se.kth.carInspection.controller.*;
+import se.kth.carInspection.data.*;
 import java.util.ArrayList;
 
 public class CashPayment {
@@ -10,31 +11,32 @@ public class CashPayment {
     private int totalCost;
     private CashRegistry cashRegistry;
 
-    public CashPayment(int amountPaid) {
+    public CashPayment(int amountPaid,int totalCost) {
         this.amountPaid = amountPaid;
-        totalCost = getInspectionCost();
+        this.totalCost=totalCost;
     }
 
-    public int getChange(int amountPaid) {
-        
+    public int getChange() {
+
         int change = totalCost - amountPaid;
         return change;
     }
-    
+
     public void updateCashPresent() {
-        
+
         cashRegistry.addAmount(totalCost);
     }
 
-     public int getInspectionCost() {
-        InspectionRegistry inspectionRegistry = new InspectionRegistry();
-        ArrayList<InspectionDTO> inspections=new ArrayList<>();
-        inspections=inspectionRegistry.getInspectionCollection();
-        for(InspectionDTO inspection: inspections)
-           totalCost+=inspection.getCost();
-        return totalCost;
+    public int payCash() {
+        int change = getChange();
+        updateCashPresent();
+        return change;
         
-    }
 
-   
-}
+    }
+    public String getPaymentInfo(){
+        String info="The change: "+getChange();
+        return info;
+    }
+ }
+

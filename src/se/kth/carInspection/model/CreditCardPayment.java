@@ -32,11 +32,12 @@ public class CreditCardPayment {
         paymentStatus = !paymentStatus;
     }
 
-    public boolean payCreditCard(CreditCardDTO creditCard, int amount) {
-        boolean returnedValue = false;
-        authorizePayment(creditCard, amount);
-        returnedValue = getPaymentStatus();
-        return returnedValue;
+   
 
+    public String getPaymentInfo() {
+       String creditCardPaymentInfo="";
+       if(authorizePayment(creditCard, amount))
+            creditCardPaymentInfo ="Authorized payment \n"+"Card name " + creditCard.getCardName() + "\n"+"Credit card holder " +creditCard.getCardHolder();
+            return creditCardPaymentInfo;
     }
 }

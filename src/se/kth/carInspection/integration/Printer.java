@@ -1,18 +1,17 @@
 
 package se.kth.carInspection.integration;
 
-public class Printer {
+import se.kth.carInspection.controller.*;
 
-    public Printer() {
+public  class Printer {
 
+    
+    public static void printReceipt(String receiptInfo) {
+      System.out.println(receiptInfo);
     }
-/*
-    public void printReceipt(Payment payment) {
-
-    }
-
+    /*
     public void printInspectionResult(LENA) {
 
     }
-*/
+     */
 }

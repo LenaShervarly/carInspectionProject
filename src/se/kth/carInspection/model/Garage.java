@@ -1,5 +1,5 @@
 package se.kth.carInspection.model;
-=======
+
 
 /**
  * Write a description of class Garage here.
