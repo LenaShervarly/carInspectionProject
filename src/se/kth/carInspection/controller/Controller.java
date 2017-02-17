@@ -18,7 +18,6 @@ public class Controller
     private Printer printer;
     private ExternalPaymentAuthorizationSystem paymentAuthorization;
     private InspectionProcess inspectionProcess;
-    private Garage garage;
     private GarageDoor door;
     private QueueNumberDisplay display;
 
@@ -26,14 +25,12 @@ public class Controller
      * Constructor for objects of class Contoller that is initializing the
      */
 
-    public Controller(Printer printer, ExternalPaymentAuthorizationSystem paymentAuthorization, Garage garage)
+    public Controller(Printer printer, ExternalPaymentAuthorizationSystem paymentAuthorization, GarageDoor door, QueueNumberDisplay display, Garage garages)
     {
         this.printer = printer;
         this.paymentAuthorization = paymentAuthorization;
-        this.garage = garage;
-        door = new GarageDoor(false);
-        display = new QueueNumberDisplay(0);
-        
+        this.door = door;
+        this.display = display;
     }
 
     /**
