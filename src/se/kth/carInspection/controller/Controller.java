@@ -1,4 +1,10 @@
-package controller;
+package se.kth.carInspection.controller;
+
+import se.kth.carInspection.integration.CashRegistry;
+import se.kth.carInspection.integration.ExternalPaymentAuthorizationSystem;
+import se.kth.carInspection.integration.Printer;
+import se.kth.carInspection.model.GarageDoor;
+import se.kth.carInspection.model.QueueNumberDisplay;
 
 /**
  * The Contoller class gives information about the
@@ -6,11 +12,11 @@ package controller;
  * @author valentina
  * @version 0.1 2017/02/16
  */
-public class Contoller
+public class Controller
 {
     private Printer printer;
     private ExternalPaymentAuthorizationSystem paymentAuthorization;
-    private CashRegister cashReg;
+    private CashRegistry cashReg;
     private InspectionProcess inspectionProcess;
     private GarageDoor door;
     private QueueNumberDisplay display;
@@ -18,7 +24,7 @@ public class Contoller
     /**
      * Constructor for objects of class Contoller that is initializing the
      */
-    public Contoller(Printer printer, ExternalPaymentAuthorizationSystem paymentAuthorization,CashRegister cashReg)
+    public Controller(Printer printer, ExternalPaymentAuthorizationSystem paymentAuthorization,CashRegistry cashReg)
     {
         this.printer = printer;
         this.paymentAuthorization = paymentAuthorization;

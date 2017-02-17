@@ -2,7 +2,9 @@
  * Public university project.
  * 
  */
-package se.kth.rentalcarproject.view;
+package se.kth.carInspection.view;
+
+import se.kth.carInspection.controller.Controller;
 
 /**
  *

@@ -18,9 +18,8 @@ public class CreditCardPayment {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean authorizePayment(CreditCardDTO creditCard, int amount) {
-        ExternalPaymentAuthorizationSystem response = new ExternalPaymentAuthorizationSystem();
-        paymentStatus = response.getPaymentStatus();
+    public boolean authorizePayment() {
+        paymentStatus = getPaymentStatus();
         return paymentStatus;
     }
 
@@ -36,7 +35,7 @@ public class CreditCardPayment {
 
     public String getPaymentInfo() {
        String creditCardPaymentInfo="";
-       if(authorizePayment(creditCard, amount))
+       if(authorizePayment())
             creditCardPaymentInfo ="Authorized payment \n"+"Card name " + creditCard.getCardName() + "\n"+"Credit card holder " +creditCard.getCardHolder();
             return creditCardPaymentInfo;
     }

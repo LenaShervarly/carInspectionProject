@@ -2,15 +2,16 @@
  * Public university project.
  * 
  */
-package se.kth.rentalcarproject.startUp;
+package se.kth.carInspection.startUp;
 
+import se.kth.carInspection.controller.Controller;
 import se.kth.carInspection.controller.Payment;
 import se.kth.carInspection.integration.CashRegistry;
 import se.kth.carInspection.integration.ExternalCheckingRegNoSystem;
 import se.kth.carInspection.integration.ExternalPaymentAuthorizationSystem;
 import se.kth.carInspection.integration.Printer;
 import se.kth.carInspection.model.Garage;
-import se.kth.rentalcarproject.view.View;
+import se.kth.carInspection.view.View;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Main {
         ExternalPaymentAuthorizationSystem externalAuthorSyst = new ExternalPaymentAuthorizationSystem();
         ExternalCheckingRegNoSystem externalRegNoSystem = new ExternalCheckingRegNoSystem();
         Garage garage= new Garage();
-        Controller controller = new Controller(printer, externalRegNoSystem, garage, cashRegister, externalAuthorSyst); 
+        Controller controller = new Controller(printer, externalAuthorSyst, cashRegister); 
        
         
         View view = new View(controller);

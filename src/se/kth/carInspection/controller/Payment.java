@@ -15,17 +15,14 @@ public class Payment {
     private ExternalCheckingRegNoSystem checkingRegNo;
     private int totalCost;
     private String carType;
-    private String receipt;'
+    private String receipt;
     private CashPayment cashPayment;
     private CreditCardPayment creditCardPayment;
 
     public Payment(String paymentType, Vehicle carBeingServed) {
         this.paymentType = paymentType;
         this.carBeingServed = carBeingServed;
-        carType=checkingRegNo.getCarType(carBeingServed.getRegistrationNumber());
-    }
-
-    public Payment() {
+        carType = checkingRegNo.getCarType(carBeingServed.getRegistrationNumber());
     }
 
     public void payCreditCard(CreditCardDTO creditCard, int amount) {
@@ -34,13 +31,11 @@ public class Payment {
         creditCardPayment.authorizePayment();
 
     }
-    
-    
 
-    public void payCash(int amountPaid,int totalCost) {
+    public void payCash(int amountPaid, int totalCost) {
         paymentType = "Cash";
-        cashPayment = new CashPayment(amountPaid,totalCost);
-        cashPayment.payCash(amountPaid);
+        cashPayment = new CashPayment(amountPaid, totalCost);
+        cashPayment.payCash();
     }
 
     public boolean getPaymentStatus() {
@@ -70,17 +65,25 @@ public class Payment {
 
     private String prepareReceiptInfo() {
         receipt = "##################RECEIPT##################";
-        receipt += "Car Type: " + carType + "\n" + "Payment type: " + getPaymentType()+ "\n"+ "Inspectin cost: " + getInspectionCost();
+        receipt += "Car Type: " + carType + "\n" + "Payment type: " + getPaymentType() + "\n" + "Inspectin cost: " + getInspectionCost();
         return receipt;
     }
 
-    public void printReceipt() {
-        
+    public String completeReceiptInfo() {
+
         String receiptInfo = prepareReceiptInfo();
-        if(paymentType.equals("Cash"))
-		receipt += cashPayment.getPaymentInfo();
-      	else
-		receipt += creditCardPayment.getPaymentInfo();
-        Printer.printReceipt(receiptInfo);
+        if (paymentType.equals("Cash")) {
+            receipt += cashPayment.getPaymentInfo();
+        } else {
+            receipt += creditCardPayment.getPaymentInfo();
+        }
+        return receipt;
     }
+
+    public void printReciept() {
+        prepareReceiptInfo();
+        completeReceiptInfo();
+        Printer.printReceipt(receipt);
+    }
+
 }
