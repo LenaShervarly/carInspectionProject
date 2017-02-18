@@ -9,8 +9,8 @@ import se.kth.carInspection.data.CarRegistrationNumbersDatabase;
  */
 public class ExternalCheckingRegNoSystem {
     private boolean isApproved;
-    private CarRegistrationNumbersDatabase RegNodatabase;
-    private String carType;
+    private static CarRegistrationNumbersDatabase RegNodatabase;
+    private static String carType;
     
     /**
      * Creates a representant of theSystem 
@@ -25,7 +25,7 @@ public class ExternalCheckingRegNoSystem {
      * @param regNo The registation number of the car
      * @return true if provided number is available in theSystem
      */
-    public boolean getApprovalOfTheCarRegNo(String regNo) {
+    public static boolean getApprovalOfTheCarRegNo(String regNo) {
       if(RegNodatabase.checkTheRegister(regNo))
           return true;
       else 
@@ -45,7 +45,7 @@ public class ExternalCheckingRegNoSystem {
      * @param regNo the registration number of the car
      * @return the registration number of the car
      */
-    public String getCarType(String regNo) {
+    public static String getCarType(String regNo) {
         carType = RegNodatabase.getCarType(regNo);
         return carType;
     }
