@@ -2,7 +2,7 @@
  * Public university project.
  * 
  */
-package data;
+package se.kth.carInspection.data;
 
 import org.junit.After;
 import org.junit.AfterClass;
