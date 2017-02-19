@@ -51,9 +51,9 @@ public class InspectionResultCollection {
      * @param updatedResult result for <code>inspection</code>
      */
     public void saveInspectionResult(InspectionDTO inspection, Boolean updatedResult)  {
-        if(results.containsKey(inspection))
+        if(results.containsKey(inspection)) {
             results.replace(inspection, updatedResult);
-        else {
+        } else {
             System.out.print("This inspection is not provided for the car");
             
         }       

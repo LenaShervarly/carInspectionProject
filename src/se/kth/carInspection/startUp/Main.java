@@ -26,14 +26,16 @@ public class Main {
         CashRegistry cashRegister = new CashRegistry();
         ExternalPaymentAuthorizationSystem externalAuthorSyst = new ExternalPaymentAuthorizationSystem();
         ExternalCheckingRegNoSystem externalRegNoSystem = new ExternalCheckingRegNoSystem();
-        Garage garage = new Garage();
+
+        Garage garage= new Garage();     
         QueueNumberDisplay display = new QueueNumberDisplay(0);
         GarageDoor door = new GarageDoor(false);
         Controller controller = new Controller(printer, externalAuthorSyst, door, display, garage);
 
 
        
-        
+     
+               
         View view = new View(controller);
         
         
