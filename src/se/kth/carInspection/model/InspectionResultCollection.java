@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import se.kth.carInspection.data.InspectionRegistriesCollection;
-import se.kth.carInspection.integration.InspectionRegistry;
+
 /**
  * The collection of the results of inspections provided by inspector for one car
  * @author Lena Shervarly
@@ -13,21 +13,21 @@ import se.kth.carInspection.integration.InspectionRegistry;
  */
 public class InspectionResultCollection {
     private HashMap<InspectionDTO, Boolean> results;
-    private InspectionRegistriesCollection inspectionRegistryCollection;
     private ArrayList<InspectionDTO> inspectionCollection;
+    private String carType;
     
     /**
      * Creates the collection of the inspections' results
      * @param carType the Type of the car for which the collection of results is provided
      */
     public InspectionResultCollection(String carType) {
+        this.carType = carType;
         results = new HashMap<>();
-        inspectionRegistryCollection = new InspectionRegistriesCollection();
+
+        if(InspectionRegistriesCollection.checkAvailability(carType))
+           inspectionCollection = InspectionRegistriesCollection.getInspectionCollection(carType);
         
-        if(inspectionRegistryCollection.checkAvailability(carType))
-           inspectionCollection = inspectionRegistryCollection.getInspectionCollection(carType);
-        
-        for(int i = 0; i< inspectionCollection.size(); i++)
+        for(int i = 0; i < inspectionCollection.size(); i++)
            results.put(inspectionCollection.get(i), false);
     }
     
@@ -67,13 +67,17 @@ public class InspectionResultCollection {
         return results;
     }
     
-    // !!!!Change System.out.println to PRINTER command
     /**
      * Prints information regarding all the results of inspections
      */
-    public void printAllResults() {
-        for(Map.Entry<InspectionDTO, Boolean> entry : results.entrySet())
-            System.out.println(entry.getKey() + " " + entry.getValue());
-    } 
+    public StringBuffer prepareInspResultsForPrinting() {
+        StringBuffer inspectionResultsPrint = new StringBuffer();
+        inspectionResultsPrint.append("***************Results of provided inspections***************" + "\n");
+        inspectionResultsPrint.append("For the car " + carType + " the following inspections were made: " + "\n");
 
+        for(Map.Entry<InspectionDTO, Boolean> entry : results.entrySet())
+            inspectionResultsPrint.append(" - " + entry.getKey().getDesctription() + " : " + (entry.getValue() ? "pass" : "fail") + "\n");
+
+        return inspectionResultsPrint;
+    }
 }
