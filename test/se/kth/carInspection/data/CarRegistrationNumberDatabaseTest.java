@@ -24,6 +24,7 @@ public class CarRegistrationNumberDatabaseTest {
     @Before
     public void setUp() { 
         database = new CarRegistrationNumbersDatabase();
+        CarRegistrationNumbersDatabase.addingLinesToDatabase("AK51", "Kollibri");
     }
     
     @After
@@ -34,14 +35,21 @@ public class CarRegistrationNumberDatabaseTest {
     @Test
     public void testCheckTheRegister(){
         assertTrue("The search works wrongly", database.checkTheRegister("A12"));
+        assertTrue(CarRegistrationNumbersDatabase.checkTheRegister("A12"));
+        assertTrue(CarRegistrationNumbersDatabase.checkTheRegister("AK51"));
         assertFalse("The search works wrongly", database.checkTheRegister("BM355"));
     }
     
     @Test
     public void testGettingCarType() {
         assertEquals("Couldn't properly receive the type of the car", "Volvo", database.getCarType("A12"));
+        assertNotNull(database.getCarType("A12"));
+        assertNotNull(CarRegistrationNumbersDatabase.getCarType("A12"));
         assertEquals("Couldn't properly receive the type of the car", "Tesla", database.getCarType("B45"));
-        
+        assertNotNull(database.getCarType("B45"));
+        assertNotNull(CarRegistrationNumbersDatabase.getCarType("B45"));
+
+        assertEquals("Couldn't properly receive the type of the car", "Kollibri", CarRegistrationNumbersDatabase.getCarType("AK51"));
     }
 
 }

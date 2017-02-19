@@ -1,14 +1,22 @@
 
 package se.kth.carInspection.controller;
 import se.kth.carInspection.integration.ExternalCheckingRegNoSystem;
-import se.kth.carInspection.integration.InspectionRegistry;
 import se.kth.carInspection.data.InspectionDTO;
+
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+
 import se.kth.carInspection.data.InspectionRegistriesCollection;
+import se.kth.carInspection.integration.Printer;
 import se.kth.carInspection.integration.Vehicle;
 import se.kth.carInspection.model.InspectionResultCollection;
+
+import static java.lang.System.in;
+import java.io.InputStream;
+
 /**
  * Inspection Process deals with everything needed in order to provide inspection
  * @author Lena Shervarly
@@ -16,28 +24,33 @@ import se.kth.carInspection.model.InspectionResultCollection;
  */
 public class InspectionProcess {
     private InspectorDTO inspectorWhoLogsIn;
-    private ExternalCheckingRegNoSystem checkingRegNo;
-    private InspectionRegistriesCollection inspectionRegistriesCollection;
     private String registrationNumber;
     private String carType;
     private ArrayList<InspectionDTO> inspectionsForVehicle;
+    private InspectionResultCollection inspectionResults;
+    Scanner scanner = new Scanner(new InputStreamReader(System.in));
+
     
     /**
      * Created Inspection Process on the base of login details of the Inspector
-     * @param inspector inspector who initializes the inspection process
+     * @param inspectorWhoLogsIn inspectorWhoLogsIn who initializes the inspection process
      */
-    public InspectionProcess(InspectorDTO inspector) {
-        inspectorWhoLogsIn = inspector;
-        checkingRegNo = new ExternalCheckingRegNoSystem();
-        inspectionRegistriesCollection = new InspectionRegistriesCollection();
+    public InspectionProcess(InspectorDTO inspectorWhoLogsIn) {
+        this.inspectorWhoLogsIn = inspectorWhoLogsIn;
     }
+
+    /**
+     * Get data regarding inspector, who launched the system
+     * @return inspector who logs in data
+     */
+    public InspectorDTO getInspectorWhoLogsIn() {return inspectorWhoLogsIn;}
     
     /**
      * Get the registration number of the vehicle
      * @param vehicleBeingInspected the car whose registration number is being searched
      * @return the registration number of the vehicle
      */
-    public String getRegNo(Vehicle vehicleBeingInspected) {
+    public String getRegistrationNo(Vehicle vehicleBeingInspected) {
         registrationNumber = vehicleBeingInspected.getRegistrationNumber();
         return registrationNumber;
     }
@@ -48,7 +61,8 @@ public class InspectionProcess {
      * @return the car type of the vehicle
      */
     public String getCarType(Vehicle vehicleBeingInspected) {
-        carType = checkingRegNo.getCarType(registrationNumber);
+        registrationNumber = getRegistrationNo(vehicleBeingInspected);
+        carType = ExternalCheckingRegNoSystem.getCarType(registrationNumber);
         return carType; 
     }
     
@@ -58,8 +72,8 @@ public class InspectionProcess {
      * @return true if the operation of entering the registration number to the system was successful 
      */
     public boolean enterVehicleRegNumber(Vehicle vehicleBeingInspected){
-        getRegNo(vehicleBeingInspected);
-        if(checkingRegNo.getApprovalOfTheCarRegNo(registrationNumber))
+        registrationNumber = getRegistrationNo(vehicleBeingInspected);
+        if(ExternalCheckingRegNoSystem.getApprovalOfTheCarRegNo(registrationNumber))
             return true;
         else
             return false;
@@ -72,10 +86,10 @@ public class InspectionProcess {
      * @throws NullPointerException 
      */
     public ArrayList<InspectionDTO> retrieveInspections(Vehicle vehicleBeingInspected) throws NullPointerException {
-        getRegNo(vehicleBeingInspected);
+        carType = getCarType(vehicleBeingInspected);
                 
         if(enterVehicleRegNumber(vehicleBeingInspected)) {
-            inspectionsForVehicle = inspectionRegistriesCollection.getInspectionCollection(carType);
+            inspectionsForVehicle = InspectionRegistriesCollection.getInspectionCollection(carType);
             return inspectionsForVehicle;
         }
         else {
@@ -99,12 +113,21 @@ public class InspectionProcess {
      * @param vehicleBeingInspected the vehicle being inspected
      */
     public void inspect(Vehicle vehicleBeingInspected) {
-        getCarType(vehicleBeingInspected);
-        InspectionResultCollection inspectionResults  = new InspectionResultCollection(carType);
+        carType = getCarType(vehicleBeingInspected);
+        inspectionResults  = new InspectionResultCollection(carType);
         HashMap<InspectionDTO, Boolean> resultsCollection = inspectionResults.getAllResults();
 
-        for(Map.Entry<InspectionDTO, Boolean> result : resultsCollection.entrySet()) {
-            inspectionResults.saveInspectionResult(result.getKey(), true);
+        for(Map.Entry<InspectionDTO, Boolean> resultsEstablishing : resultsCollection.entrySet()) {
+            System.out.println("The result for the inspection " + resultsEstablishing.getKey().getDesctription() + " is: ");
+            boolean result = scanner.nextBoolean();
+            inspectionResults.saveInspectionResult(resultsEstablishing.getKey(), result);
         }
+    }
+
+    /**
+     * Printing information regarding results of the provided inspetions
+     */
+    public void printingResults () {
+        Printer.printInspectionResult(inspectionResults.prepareInspResultsForPrinting());
     }
 }
