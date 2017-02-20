@@ -50,7 +50,7 @@ public class InspectionProcess {
      * @param vehicleBeingInspected the car whose registration number is being searched
      * @return the registration number of the vehicle
      */
-    public String getRegistrationNo(Vehicle vehicleBeingInspected) {
+    private String getRegistrationNo(Vehicle vehicleBeingInspected) {
         registrationNumber = vehicleBeingInspected.getRegistrationNumber();
         return registrationNumber;
     }
@@ -60,7 +60,7 @@ public class InspectionProcess {
      * @param vehicleBeingInspected the car whose type is being searched
      * @return the car type of the vehicle
      */
-    public String getCarType(Vehicle vehicleBeingInspected) {
+    private String getCarType(Vehicle vehicleBeingInspected) {
         registrationNumber = getRegistrationNo(vehicleBeingInspected);
         carType = ExternalCheckingRegNoSystem.getCarType(registrationNumber);
         return carType; 
