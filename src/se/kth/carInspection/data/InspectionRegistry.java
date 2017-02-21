@@ -1,6 +1,6 @@
 
 
-package se.kth.carInspection.integration;
+package se.kth.carInspection.data;
 import se.kth.carInspection.data.InspectionDTO;
 import java.util.ArrayList;
 
@@ -21,9 +21,8 @@ public class InspectionRegistry {
     public InspectionRegistry(String carType){
          if(!carType.equals(null)) {
             this.carType = carType;
-            inspectionCollection = new ArrayList<>();
+            //inspectionCollection = new ArrayList<>();
             fillInspectionRegistry();
-
          }
          else 
              throw new IllegalArgumentException("Type in the type of the car");
@@ -33,7 +32,7 @@ public class InspectionRegistry {
      * Enables to fill the registry with the inspections for the type of a car, specified during the creation of this particular registry.
      * @param newInspection The new inspection for the specified car
      */
-    public void setInspectioCollection(InspectionDTO newInspection) {
+    public void setInspectionCollection(InspectionDTO newInspection) {
         if(!newInspection.equals(null))
             inspectionCollection.add(newInspection);      
     }
@@ -59,6 +58,7 @@ public class InspectionRegistry {
      * Filling the Inspection registry with sample basic inspectionChecks basing on the description and cost of every inspection
      */    
     private void fillInspectionRegistry() {
+        inspectionCollection = new ArrayList<>();
         InspectionDTO inspectionWheel = new InspectionDTO("Inspecting the wheels", 150);
         InspectionDTO inspectionMotor = new InspectionDTO("Inspecting the motor", 350);
         InspectionDTO inspectionDoors = new InspectionDTO("Inspecting the doors", 200);

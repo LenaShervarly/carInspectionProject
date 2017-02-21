@@ -25,6 +25,9 @@ public class Payment {
         carType = checkingRegNo.getCarType(carBeingServed.getRegistrationNumber());
     }
 
+    /**
+     * handels the credit card payment
+     */
     public void payCreditCard(CreditCardDTO creditCard, int amount) {
         paymentType = "Credit card";
         creditCardPayment = new CreditCardPayment(creditCard, amount);
@@ -32,20 +35,20 @@ public class Payment {
 
     }
 
+    /**
+     * handels the cash payment
+     */
     public void payCash(int amountPaid, int totalCost) {
         paymentType = "Cash";
         cashPayment = new CashPayment(amountPaid, totalCost);
         cashPayment.payCash();
     }
 
-    public boolean getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus() {
-        paymentStatus = !paymentStatus;
-    }
-
+    /**
+     * calculate the inspection cost
+     *
+     * @return inspection cost
+     */
     public int getInspectionCost() {
         InspectionRegistriesCollection inspectionRegistry = new InspectionRegistriesCollection();
         checkingRegNo = new ExternalCheckingRegNoSystem();
@@ -69,6 +72,12 @@ public class Payment {
         return receipt;
     }
 
+    /**
+     * completes the receipt information depending on the payment type(cach or
+     * creditcard)
+     *
+     * @return string representing the rest of the information
+     */
     public String completeReceiptInfo() {
 
         String receiptInfo = prepareReceiptInfo();
@@ -80,10 +89,14 @@ public class Payment {
         return receipt;
     }
 
+    /**
+     * calls the printer to print the reciept
+     */
     public void printReciept() {
         prepareReceiptInfo();
-        completeReceiptInfo();
+        receipt = completeReceiptInfo();
         Printer.printReceipt(receipt);
+
     }
 
 }

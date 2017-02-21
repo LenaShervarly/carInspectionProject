@@ -6,7 +6,10 @@ public class ExternalPaymentAuthorizationSystem {
 
     }
 
-    public static  boolean getPaymentStatus() {
+    /**
+     * @return payment status fromm the external authorization system 
+     */
+    public static boolean getPaymentStatus() {
         return true;
     }
 }

@@ -6,7 +6,6 @@ package se.kth.carInspection.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import se.kth.carInspection.integration.InspectionRegistry;
 
 /**
  *
@@ -16,7 +15,7 @@ import se.kth.carInspection.integration.InspectionRegistry;
  */
 public class InspectionRegistriesCollection {
     
-    private HashMap<String, ArrayList<InspectionDTO>> inspectionRegistryCollection;
+    private static HashMap<String, ArrayList<InspectionDTO>> inspectionRegistryCollection = new HashMap<>();
     
     
     /**
@@ -31,7 +30,7 @@ public class InspectionRegistriesCollection {
      * Fills the Collection of Inspection registries on the base of provided <code>oneInspectionRegistryLine</code>
      * @param oneInspectionRegistryLine one instanse InspectionRegistry class representing one line of Excel
      */
-    public void fillCollection(InspectionRegistry oneInspectionRegistryLine) {
+    public static void fillCollection(InspectionRegistry oneInspectionRegistryLine) {
         inspectionRegistryCollection.put(oneInspectionRegistryLine.getCarType(), oneInspectionRegistryLine.getInspectionCollection());
     }
     
@@ -40,7 +39,7 @@ public class InspectionRegistriesCollection {
      * @param carType the type of the car, the list of inspections should be found for
      * @return the list of all the inspections for the specified car type
      */
-    public ArrayList<InspectionDTO> getInspectionCollection(String carType){
+    public static ArrayList<InspectionDTO> getInspectionCollection(String carType){
         if(inspectionRegistryCollection.containsKey(carType))
             return inspectionRegistryCollection.get(carType);
         else 
@@ -51,7 +50,7 @@ public class InspectionRegistriesCollection {
      * Checks whether the car type is registred in the collection
      * @param carType the type of the car, whose presense in the register we are checking
      */
-    public boolean checkAvailability(String carType) {
+    public static boolean checkAvailability(String carType) {
         if(inspectionRegistryCollection.containsKey(carType))
             return true;
         else 
@@ -61,7 +60,7 @@ public class InspectionRegistriesCollection {
     /**
      * Fills the Collection of Inspection registries with sample data
      */
-    private void fillSampleCollection() {
+    public static void fillSampleCollection() {
         InspectionRegistry inspectionRegistryLine1 = new InspectionRegistry("Volvo");
         InspectionRegistry inspectionRegistryLine2 = new InspectionRegistry("Saab");
         InspectionRegistry inspectionRegistryLine3 = new InspectionRegistry("Toyota");

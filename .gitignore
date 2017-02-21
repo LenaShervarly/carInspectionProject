@@ -71,6 +71,11 @@ nbdist/
 ### Intejelj ###
 *.iml
 out/
-.idea
+.idea/
+.classpath
+.project
+carInspectionProject.eml
+carInspection.iml
+JavaApplication1.java
 
 # End of https://www.gitignore.io/api/java,netbeans
