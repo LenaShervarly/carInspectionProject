@@ -1,5 +1,6 @@
 
 package se.kth.carInspection.data;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
@@ -24,7 +25,8 @@ public class CarRegistrationNumbersDatabase {
      * @param carType type of the car
      */
     public static void addingLinesToDatabase(String regNo, String carType) {
-        registrationNumbers.put(regNo, carType);
+        if(!regNo.equals(null) && !carType.equals(null))
+            registrationNumbers.put(regNo, carType);
     }
     /**
      * Filling the database with data: 
@@ -55,12 +57,14 @@ public class CarRegistrationNumbersDatabase {
     /**
      * Provides the type of the car on the base of it registration number
      * @param registrationNumber the registration number of the car
-     * @return 
+     * @return the matching type of the car 
+     * @throws SQLException when the registration number can't be found in the database
      */
-    public static String getCarType(String registrationNumber) {
+    public static String getCarType(String registrationNumber) throws SQLException {
+        
         if(checkTheRegister(registrationNumber))
             return registrationNumbers.get(registrationNumber);
         else
-            throw new IllegalArgumentException("The registration number is not valid. Try again");
+            throw new SQLException("The registration number " + registrationNumber + " is not in the database");
     }
 }

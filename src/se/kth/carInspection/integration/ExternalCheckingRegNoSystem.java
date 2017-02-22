@@ -1,5 +1,6 @@
 
 package se.kth.carInspection.integration;
+import java.sql.SQLException;
 import se.kth.carInspection.data.CarRegistrationNumbersDatabase;
 
 /**
@@ -26,8 +27,13 @@ public class ExternalCheckingRegNoSystem {
      * @param regNo the registration number of the car
      * @return the registration number of the car
      */
-    public static String getCarType(String regNo) {
-        String carType = CarRegistrationNumbersDatabase.getCarType(regNo);
-        return carType;
+    public static String getCarType(String regNo) throws IllegalLicenseNumberException {
+        String carType = "";
+        try {
+            carType = CarRegistrationNumbersDatabase.getCarType(regNo);
+            return carType;
+        } catch(SQLException sqlExcp) {
+            throw new IllegalLicenseNumberException(regNo, sqlExcp);
+        }
     }
 }

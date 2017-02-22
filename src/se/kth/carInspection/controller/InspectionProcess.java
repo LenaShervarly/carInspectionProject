@@ -16,6 +16,8 @@ import se.kth.carInspection.model.InspectionResultCollection;
 
 import static java.lang.System.in;
 import java.io.InputStream;
+import se.kth.carInspection.data.InspectionRegistriesException;
+import se.kth.carInspection.integration.IllegalLicenseNumberException;
 
 /**
  * Inspection Process deals with everything needed in order to provide inspection
@@ -60,10 +62,14 @@ public class InspectionProcess {
      * @param vehicleBeingInspected the car whose type is being searched
      * @return the car type of the vehicle
      */
-    private String getCarType(Vehicle vehicleBeingInspected) {
-        registrationNumber = getRegistrationNo(vehicleBeingInspected);
-        carType = ExternalCheckingRegNoSystem.getCarType(registrationNumber);
-        return carType; 
+    public String getCarType(Vehicle vehicleBeingInspected) throws OperationFailedException {
+        try {
+            registrationNumber = getRegistrationNo(vehicleBeingInspected);
+            carType = ExternalCheckingRegNoSystem.getCarType(registrationNumber);
+            return carType; 
+        } catch(IllegalLicenseNumberException illLicE) {
+            throw new OperationFailedException("The licence number of the vehicle " + vehicleBeingInspected.getRegistrationNumber() + " is not valid. Please check again.", illLicE);
+        }
     }
     
     /**
@@ -83,18 +89,20 @@ public class InspectionProcess {
      * Retrieve a collection of inspections for a specified <code>vehicleBeingInspected</code>
      * @param vehicleBeingInspected the vehicle being inspected
      * @return a collection of inspections for a specified vehicle
-     * @throws NullPointerException 
+     * @throws OperationFailedException if it's not possible to retrieve inspections for the specified vehicle 
      */
-    public ArrayList<InspectionDTO> retrieveInspections(Vehicle vehicleBeingInspected) throws NullPointerException {
+    public ArrayList<InspectionDTO> retrieveInspections(Vehicle vehicleBeingInspected) throws OperationFailedException {
+        
         carType = getCarType(vehicleBeingInspected);
-                
         if(enterVehicleRegNumber(vehicleBeingInspected)) {
-            inspectionsForVehicle = InspectionRegistriesCollection.getInspectionCollection(carType);
-            return inspectionsForVehicle;
+            try{
+                inspectionsForVehicle = InspectionRegistriesCollection.getInspectionCollection(carType);
+                return inspectionsForVehicle;
+            } catch(InspectionRegistriesException e) {
+                 throw new OperationFailedException("This vehicle with registration number " + vehicleBeingInspected.getRegistrationNumber() + " is not in service", e);
+            }
         }
-        else {
-            throw new NullPointerException("This vehicle is number is not in service");
-        }
+        return inspectionsForVehicle;
     }
     
     /**
@@ -112,7 +120,7 @@ public class InspectionProcess {
      * Inspect the given vehicle
      * @param vehicleBeingInspected the vehicle being inspected
      */
-    public void inspect(Vehicle vehicleBeingInspected) {
+    public void inspect(Vehicle vehicleBeingInspected) throws OperationFailedException {
         carType = getCarType(vehicleBeingInspected);
         inspectionResults  = new InspectionResultCollection(carType);
         HashMap<InspectionDTO, Boolean> resultsCollection = inspectionResults.getAllResults();

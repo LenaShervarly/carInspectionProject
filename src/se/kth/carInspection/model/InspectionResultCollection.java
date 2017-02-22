@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import se.kth.carInspection.data.InspectionRegistriesCollection;
+import se.kth.carInspection.data.InspectionRegistriesException;
 
 /**
  * The collection of the results of inspections provided by inspector for one car
@@ -19,22 +20,26 @@ public class InspectionResultCollection {
     /**
      * Creates the collection of the inspections' results
      * @param carType the Type of the car for which the collection of results is provided
+     * @throws IllegalArgumentException if it's not possible to create a collection of inspction results for the <code>carType</code>
      */
     public InspectionResultCollection(String carType) {
-        this.carType = carType;
-        results = new HashMap<>();
+        try {
+            this.carType = carType;
+            results = new HashMap<>();
+            if(InspectionRegistriesCollection.checkAvailability(carType))
+               inspectionCollection = InspectionRegistriesCollection.getInspectionCollection(carType);
 
-        if(InspectionRegistriesCollection.checkAvailability(carType))
-           inspectionCollection = InspectionRegistriesCollection.getInspectionCollection(carType);
-        
-        for(int i = 0; i < inspectionCollection.size(); i++)
-           results.put(inspectionCollection.get(i), false);
+            for(int i = 0; i < inspectionCollection.size(); i++)
+               results.put(inspectionCollection.get(i), false);
+        } catch (InspectionRegistriesException inspRegExc) {
+            throw new IllegalArgumentException("It's not possible to create the result collection for the car " + carType, inspRegExc);
+        }
     }
     
     /**
      * Get the result of the precise <code>inspection</code>
      * @param inspection inspection for which the result is being looked for
-     * @return 
+     * @return the result of the specific inspection, passed as a parameter
      */
     public boolean getInspectionResult(InspectionDTO inspection)  {
         if(results.containsKey(inspection))

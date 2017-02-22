@@ -21,11 +21,11 @@ public class InspectionRegistry {
     public InspectionRegistry(String carType){
          if(!carType.equals(null)) {
             this.carType = carType;
-            //inspectionCollection = new ArrayList<>();
+            inspectionCollection = new ArrayList<>();
             fillInspectionRegistry();
          }
          else 
-             throw new IllegalArgumentException("Type in the type of the car");
+             throw new NullPointerException("The type of the car " + carType +" is null");
     }
     
     /**
@@ -34,7 +34,9 @@ public class InspectionRegistry {
      */
     public void setInspectionCollection(InspectionDTO newInspection) {
         if(!newInspection.equals(null))
-            inspectionCollection.add(newInspection);      
+            inspectionCollection.add(newInspection);
+         else 
+             throw new NullPointerException("Type inspection " + newInspection + " is null");
     }
     
      /**
@@ -62,9 +64,13 @@ public class InspectionRegistry {
         InspectionDTO inspectionWheel = new InspectionDTO("Inspecting the wheels", 150);
         InspectionDTO inspectionMotor = new InspectionDTO("Inspecting the motor", 350);
         InspectionDTO inspectionDoors = new InspectionDTO("Inspecting the doors", 200);
+        InspectionDTO inspectionBagage = new InspectionDTO("Inspecting the bagage part", 200);
+        InspectionDTO inspectionSeats = new InspectionDTO("Inspecting the seats", 200);
         
         inspectionCollection.add(inspectionDoors);
         inspectionCollection.add(inspectionMotor);
         inspectionCollection.add(inspectionWheel);
+        inspectionCollection.add(inspectionSeats);
+        inspectionCollection.add(inspectionBagage);
     }
 }

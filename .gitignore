@@ -67,6 +67,7 @@ dist/
 nbdist/
 .nb-gradle/
 *.xml
+manifest.mf
 
 ### Intejelj ###
 *.iml

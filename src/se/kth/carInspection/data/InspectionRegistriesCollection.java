@@ -38,12 +38,13 @@ public class InspectionRegistriesCollection {
      * Get the list of all the inspections for the specified car type
      * @param carType the type of the car, the list of inspections should be found for
      * @return the list of all the inspections for the specified car type
+     * @throws InspectionRegistriesException when the <code>carType</code> can't be found in the database
      */
-    public static ArrayList<InspectionDTO> getInspectionCollection(String carType){
+    public static ArrayList<InspectionDTO> getInspectionCollection(String carType) throws InspectionRegistriesException{
         if(inspectionRegistryCollection.containsKey(carType))
             return inspectionRegistryCollection.get(carType);
         else 
-            throw new IllegalArgumentException("Type the car is now valid. Type the right one");
+            throw new InspectionRegistriesException("Type the car " + carType + " is not found in the database");
     }
     
     /**

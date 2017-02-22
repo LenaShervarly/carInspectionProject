@@ -19,10 +19,14 @@ public class Payment {
     private CashPayment cashPayment;
     private CreditCardPayment creditCardPayment;
 
-    public Payment(String paymentType, Vehicle carBeingServed) {
+    public Payment(String paymentType, Vehicle carBeingServed) throws OperationFailedException {
         this.paymentType = paymentType;
         this.carBeingServed = carBeingServed;
-        carType = checkingRegNo.getCarType(carBeingServed.getRegistrationNumber());
+        try {
+            carType = checkingRegNo.getCarType(carBeingServed.getRegistrationNumber());
+        } catch(IllegalLicenseNumberException illLicE) {
+            throw new OperationFailedException("The licence number of the vehicle " + carBeingServed.getRegistrationNumber() + " is not valid. Please check the registration number and try again.", illLicE);
+        }
     }
 
     public void payCreditCard(CreditCardDTO creditCard, int amount) {
