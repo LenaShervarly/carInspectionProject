@@ -14,15 +14,20 @@ package se.kth.carInspection.model;
  * @version 0.1 2017/02/14
  */
 
-public class Garage
-{
+public class Garage {
+    private final static Garage garage = new Garage();
     private GarageDoor door;
     private QueueNumberDisplay display;
 
+    public static Garage getGarage() {
+        return garage;
+    }
+
+    
     /**
      * Constructor for objects of class Garage
      */
-    public Garage()
+    private Garage()
     {
         door = new GarageDoor(false);
         display = new QueueNumberDisplay(0);

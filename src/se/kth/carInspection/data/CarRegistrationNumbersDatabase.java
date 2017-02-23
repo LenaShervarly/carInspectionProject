@@ -9,14 +9,23 @@ import java.util.HashMap;
  * @version 0.1
  */
 public class CarRegistrationNumbersDatabase {
-    private static HashMap<String, String> registrationNumbers = new HashMap<>();
+    private static final CarRegistrationNumbersDatabase carDataBase = new CarRegistrationNumbersDatabase();
+    private HashMap<String, String> registrationNumbers = new HashMap<>();
     
     /**
      * Creates a sample external database for registration numbers of the car and their types, filling the database with data
      */
-    public CarRegistrationNumbersDatabase(){
+    private CarRegistrationNumbersDatabase(){
         registrationNumbers = new HashMap<>();
         fillSampleRegister();
+    }
+
+    /**
+     * Get the only copy of the Car Registration Numbers Database
+     * @return the Car Registration Numbers Database
+     */
+    public static CarRegistrationNumbersDatabase getCarDataBase() {
+        return carDataBase;
     }
 
     /**
@@ -24,7 +33,7 @@ public class CarRegistrationNumbersDatabase {
      * @param regNo registration number of the car
      * @param carType type of the car
      */
-    public static void addingLinesToDatabase(String regNo, String carType) {
+    public void addingLinesToDatabase(String regNo, String carType) {
         if(!regNo.equals(null) && !carType.equals(null))
             registrationNumbers.put(regNo, carType);
     }
@@ -33,7 +42,7 @@ public class CarRegistrationNumbersDatabase {
      * Key represents "the registration number" 
      * Value represents "Type of the car"
      */
-    public static void fillSampleRegister() {
+    public void fillSampleRegister() {
         registrationNumbers.put("A12", "Volvo");
         registrationNumbers.put("A23", "Saab");
         registrationNumbers.put("A44", "Toyota");
@@ -47,7 +56,7 @@ public class CarRegistrationNumbersDatabase {
      * @param registrationNumber the registration number of the car
      * @return 
      */
-    public static boolean checkTheRegister(String registrationNumber){
+    public boolean checkTheRegister(String registrationNumber){
         if(registrationNumbers.containsKey(registrationNumber))
             return true;
         else
@@ -60,7 +69,7 @@ public class CarRegistrationNumbersDatabase {
      * @return the matching type of the car 
      * @throws SQLException when the registration number can't be found in the database
      */
-    public static String getCarType(String registrationNumber) throws SQLException {
+    public String getCarType(String registrationNumber) throws SQLException {
         
         if(checkTheRegister(registrationNumber))
             return registrationNumbers.get(registrationNumber);

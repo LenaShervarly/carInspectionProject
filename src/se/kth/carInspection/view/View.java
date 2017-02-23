@@ -7,7 +7,7 @@ package se.kth.carInspection.view;
 import java.io.File;
 import java.io.IOException;
 import se.kth.carInspection.controller.Controller;
-import se.kth.carInspection.controller.InspectionProcess;
+import se.kth.carInspection.model.InspectionProcess;
 import se.kth.carInspection.controller.InspectorDTO;
 import se.kth.carInspection.controller.OperationFailedException;
 import se.kth.carInspection.integration.ExternalCheckingRegNoSystem;
@@ -34,7 +34,7 @@ public class View {
         try {
             InspectorDTO inspector = new InspectorDTO ("Student", "KTH");
             InspectionProcess inspectioning = new InspectionProcess(inspector);
-            Vehicle sampleCar = new Vehicle(null);
+            Vehicle sampleCar = new Vehicle("A12");
             inspectioning.enterVehicleRegNumber(sampleCar);
             String sampleCarType = "";
             try {
@@ -49,7 +49,7 @@ public class View {
             } catch (OperationFailedException e) {
                 handleException(e, "Couldn't inspect the car: " + sampleCarType + " Please check everything and try again");
             }
-            inspectioning.printingResults();
+            //inspectioning.printingResults();
         } catch (Exception e) {
             handleException(e, "Failed to inspect. Please try again.");
         }

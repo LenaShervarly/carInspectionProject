@@ -1,5 +1,5 @@
 
-package se.kth.carInspection.controller;
+package se.kth.carInspection.model;
 import se.kth.carInspection.integration.ExternalCheckingRegNoSystem;
 import se.kth.carInspection.data.InspectionDTO;
 
@@ -16,8 +16,12 @@ import se.kth.carInspection.model.InspectionResultCollection;
 
 import static java.lang.System.in;
 import java.io.InputStream;
+import se.kth.carInspection.controller.InspectorDTO;
+import se.kth.carInspection.controller.OperationFailedException;
 import se.kth.carInspection.data.InspectionRegistriesException;
 import se.kth.carInspection.integration.IllegalLicenseNumberException;
+import se.kth.carInspection.model.InspectionResultObserver;
+import se.kth.carInspection.view.InspectionStatsView;
 
 /**
  * Inspection Process deals with everything needed in order to provide inspection
@@ -31,6 +35,7 @@ public class InspectionProcess {
     private ArrayList<InspectionDTO> inspectionsForVehicle;
     private InspectionResultCollection inspectionResults;
     Scanner scanner = new Scanner(new InputStreamReader(System.in));
+    private InspectionResultObserver observer;
 
     
     /**
@@ -65,7 +70,7 @@ public class InspectionProcess {
     public String getCarType(Vehicle vehicleBeingInspected) throws OperationFailedException {
         try {
             registrationNumber = getRegistrationNo(vehicleBeingInspected);
-            carType = ExternalCheckingRegNoSystem.getCarType(registrationNumber);
+            carType = ExternalCheckingRegNoSystem.getExtCheckSyst().getCarType(registrationNumber);
             return carType; 
         } catch(IllegalLicenseNumberException illLicE) {
             throw new OperationFailedException("The licence number of the vehicle " + vehicleBeingInspected.getRegistrationNumber() + " is not valid. Please check again.", illLicE);
@@ -79,7 +84,7 @@ public class InspectionProcess {
      */
     public boolean enterVehicleRegNumber(Vehicle vehicleBeingInspected){
         registrationNumber = getRegistrationNo(vehicleBeingInspected);
-        if(ExternalCheckingRegNoSystem.getApprovalOfTheCarRegNo(registrationNumber))
+        if(ExternalCheckingRegNoSystem.getExtCheckSyst().getApprovalOfTheCarRegNo(registrationNumber))
             return true;
         else
             return false;
@@ -96,7 +101,7 @@ public class InspectionProcess {
         carType = getCarType(vehicleBeingInspected);
         if(enterVehicleRegNumber(vehicleBeingInspected)) {
             try{
-                inspectionsForVehicle = InspectionRegistriesCollection.getInspectionCollection(carType);
+                inspectionsForVehicle = InspectionRegistriesCollection.getInspectionRegCollection().getInspectionCollection(carType);
                 return inspectionsForVehicle;
             } catch(InspectionRegistriesException e) {
                  throw new OperationFailedException("This vehicle with registration number " + vehicleBeingInspected.getRegistrationNumber() + " is not in service", e);
@@ -109,11 +114,17 @@ public class InspectionProcess {
      * Get the total cost of all the inspections for the vehicle
      * @return  cost of all the inspections for the vehicle
      */
-    public int calculateInspectionCost() {
+    public int calculateInspectionCost() throws OperationFailedException {
         int totalCost = 0;
-        for(InspectionDTO inspection : inspectionsForVehicle)
+        
+        try {
+            for(InspectionDTO inspection : inspectionsForVehicle)
             totalCost += inspection.getCost();
-        return totalCost;
+            return totalCost;
+        } catch(NullPointerException e) {
+            throw new OperationFailedException("It's not possible to calculate the cost", e);
+        }
+            
     }
     
     /**
@@ -125,10 +136,14 @@ public class InspectionProcess {
         inspectionResults  = new InspectionResultCollection(carType);
         HashMap<InspectionDTO, Boolean> resultsCollection = inspectionResults.getAllResults();
 
-        for(Map.Entry<InspectionDTO, Boolean> resultsEstablishing : resultsCollection.entrySet()) {
-            System.out.println("The result for the inspection " + resultsEstablishing.getKey().getDesctription() + " is: ");
-            boolean result = scanner.nextBoolean();
-            inspectionResults.saveInspectionResult(resultsEstablishing.getKey(), result);
+        while(resultsCollection.containsValue(false)){
+            for(Map.Entry<InspectionDTO, Boolean> resultsEstablishing : resultsCollection.entrySet()) {
+                System.out.println("The result for the inspection \" " + resultsEstablishing.getKey().getDesctription() + "\" is: ");
+                boolean result = scanner.nextBoolean();
+                inspectionResults.saveInspectionResult(resultsEstablishing.getKey(), result);
+            }
+            observer = new InspectionStatsView();
+            observer.newInspectionResultCollection(inspectionResults);
         }
     }
 
@@ -136,6 +151,6 @@ public class InspectionProcess {
      * Printing information regarding results of the provided inspetions
      */
     public void printingResults () {
-        Printer.printInspectionResult(inspectionResults.prepareInspResultsForPrinting());
+        Printer.getPtinter().printInspectionResult(inspectionResults.prepareInspResultsForPrinting());
     }
 }

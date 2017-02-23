@@ -1,2 +1,9 @@
-On the 3 of 1.117 at 15:52:49
-Error message was thrown: null
+On the 4 of 1.117 at 11:58:7
+Error message was thrown: null because of null
+java.util.InputMismatchException
+	at java.util.Scanner.throwFor(Scanner.java:864)
+	at java.util.Scanner.next(Scanner.java:1485)
+	at java.util.Scanner.nextBoolean(Scanner.java:1782)
+	at se.kth.carInspection.controller.InspectionProcess.inspect(InspectionProcess.java:136)
+	at se.kth.carInspection.view.View.sampleExecution(View.java:48)
+	at se.kth.carInspection.startUp.Main.main(Main.java:40)

@@ -24,17 +24,12 @@ import se.kth.carInspection.view.View;
 public class Main {
     
     public static void main(String[] args) {
-        Printer printer = new Printer();
+        
         CashRegistry cashRegister = new CashRegistry();
         ExternalPaymentAuthorizationSystem externalAuthorSyst = new ExternalPaymentAuthorizationSystem();
-        ExternalCheckingRegNoSystem externalRegNoSystem = new ExternalCheckingRegNoSystem();
-        CarRegistrationNumbersDatabase carRegistrationNumbersDatabase = new CarRegistrationNumbersDatabase();
-        InspectionRegistriesCollection inspectionRegistriesCollection = new InspectionRegistriesCollection();
-
-        Garage garage= new Garage();     
-        QueueNumberDisplay display = new QueueNumberDisplay(0);
-        GarageDoor door = new GarageDoor(false);
-        Controller controller = new Controller(printer, externalAuthorSyst, door, display, garage);
+        
+        
+        Controller controller = new Controller(externalAuthorSyst);
 
         View view = new View(controller);
         view.sampleExecution();

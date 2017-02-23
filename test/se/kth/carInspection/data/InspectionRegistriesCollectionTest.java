@@ -29,36 +29,35 @@ public class InspectionRegistriesCollectionTest {
         secondInspectionRegistryLine = new InspectionRegistry("Saab");
         thirdInspectionRegistryLine = new InspectionRegistry("Mers");
 
-        InspectionRegistriesCollection.fillCollection(firstInspectionRegistryLine);
-        InspectionRegistriesCollection.fillCollection(secondInspectionRegistryLine);
-        InspectionRegistriesCollection.fillCollection(thirdInspectionRegistryLine);
+        InspectionRegistriesCollection.getInspectionRegCollection().fillCollection(firstInspectionRegistryLine);
+        InspectionRegistriesCollection.getInspectionRegCollection().fillCollection(secondInspectionRegistryLine);
+        InspectionRegistriesCollection.getInspectionRegCollection().fillCollection(thirdInspectionRegistryLine);
     }
     
     @After
     public void tearDown() {
-        //inspectionReg = null;
     }
     
     @Test
     public void testCheckAvailability() {
-        assertTrue("Not able to find the car that is there", InspectionRegistriesCollection.checkAvailability("Volvo"));
-        assertTrue("Not able to find the car that is there", InspectionRegistriesCollection.checkAvailability("Saab"));
-        assertTrue("Not able to find the car that is there", InspectionRegistriesCollection.checkAvailability("Mers"));
-        assertFalse("Able to find the car that is not in the database",InspectionRegistriesCollection.checkAvailability("Moskvich"));
-        assertFalse("Able to find the car that is not in the database",InspectionRegistriesCollection.checkAvailability(null));
+        assertTrue("Not able to find the car that is there", InspectionRegistriesCollection.getInspectionRegCollection().checkAvailability("Volvo"));
+        assertTrue("Not able to find the car that is there", InspectionRegistriesCollection.getInspectionRegCollection().checkAvailability("Saab"));
+        assertTrue("Not able to find the car that is there", InspectionRegistriesCollection.getInspectionRegCollection().checkAvailability("Mers"));
+        assertFalse("Able to find the car that is not in the database",InspectionRegistriesCollection.getInspectionRegCollection().checkAvailability("Moskvich"));
+        assertFalse("Able to find the car that is not in the database",InspectionRegistriesCollection.getInspectionRegCollection().checkAvailability(null));
     }
 
     @Test
     public void testGetInspectionCollection() {
         ArrayList<InspectionDTO> inpectionsExpected1 = firstInspectionRegistryLine.getInspectionCollection();
-        ArrayList<InspectionDTO> inpectionsRetrieved1 = InspectionRegistriesCollection.getInspectionCollection("Volvo");
+        ArrayList<InspectionDTO> inpectionsRetrieved1 = InspectionRegistriesCollection.getInspectionRegCollection().getInspectionCollection("Volvo");
         assertNotNull("The collection of inspections is empty", firstInspectionRegistryLine.getInspectionCollection());
-        assertNotNull("The collection of inspections is empty", InspectionRegistriesCollection.getInspectionCollection("Volvo"));
+        assertNotNull("The collection of inspections is empty", InspectionRegistriesCollection.getInspectionRegCollection().getInspectionCollection("Volvo"));
         assertEquals("The list of inspections is not matching", inpectionsExpected1, inpectionsRetrieved1);
 
         ArrayList<InspectionDTO> inpectionsExpected2 = secondInspectionRegistryLine.getInspectionCollection();
-        ArrayList<InspectionDTO> inpectionsRetrieved2 = InspectionRegistriesCollection.getInspectionCollection("Saab");
-        assertNotNull("The list of inspections is not matching", InspectionRegistriesCollection.getInspectionCollection("Saab"));
+        ArrayList<InspectionDTO> inpectionsRetrieved2 = InspectionRegistriesCollection.getInspectionRegCollection().getInspectionCollection("Saab");
+        assertNotNull("The list of inspections is not matching", InspectionRegistriesCollection.getInspectionRegCollection().getInspectionCollection("Saab"));
         assertEquals("The list of inspections is not matching", inpectionsExpected2, inpectionsRetrieved2);
 
     }

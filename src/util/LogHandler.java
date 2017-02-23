@@ -42,8 +42,9 @@ public class LogHandler {
     public void loggingException(Exception exception) {
         StringBuilder message = new StringBuilder();
         message.append("On the " + getErrorTime() + "\n");
-        message.append("Error message was thrown: " + exception.getMessage());
+        message.append("Error message was thrown: " + exception.getMessage() + " because of " + exception.getCause());
         logfile.println(message);
+        exception.printStackTrace(logfile);
     }
     
     /**

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import se.kth.carInspection.data.InspectionRegistriesCollection;
 import se.kth.carInspection.data.InspectionRegistriesException;
+import se.kth.carInspection.view.InspectionStatsView;
 
 /**
  * The collection of the results of inspections provided by inspector for one car
@@ -16,6 +17,7 @@ public class InspectionResultCollection {
     private HashMap<InspectionDTO, Boolean> results;
     private ArrayList<InspectionDTO> inspectionCollection;
     private String carType;
+
     
     /**
      * Creates the collection of the inspections' results
@@ -26,8 +28,8 @@ public class InspectionResultCollection {
         try {
             this.carType = carType;
             results = new HashMap<>();
-            if(InspectionRegistriesCollection.checkAvailability(carType))
-               inspectionCollection = InspectionRegistriesCollection.getInspectionCollection(carType);
+            if(InspectionRegistriesCollection.getInspectionRegCollection().checkAvailability(carType))
+               inspectionCollection = InspectionRegistriesCollection.getInspectionRegCollection().getInspectionCollection(carType);
 
             for(int i = 0; i < inspectionCollection.size(); i++)
                results.put(inspectionCollection.get(i), false);
@@ -59,9 +61,8 @@ public class InspectionResultCollection {
         if(results.containsKey(inspection)) {
             results.replace(inspection, updatedResult);
         } else {
-            System.out.print("This inspection is not provided for the car");
-            
-        }       
+            System.out.print("This inspection is not provided for the car");    
+        }
     }
     
     /**

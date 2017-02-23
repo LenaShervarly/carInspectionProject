@@ -1,5 +1,6 @@
 package se.kth.carInspection.controller;
 
+import se.kth.carInspection.model.InspectionProcess;
 import se.kth.carInspection.integration.CashRegistry;
 import se.kth.carInspection.integration.ExternalPaymentAuthorizationSystem;
 import se.kth.carInspection.integration.Printer;
@@ -15,22 +16,17 @@ import se.kth.carInspection.model.QueueNumberDisplay;
  */
 public class Controller
 {
-    private Printer printer;
     private ExternalPaymentAuthorizationSystem paymentAuthorization;
     private InspectionProcess inspectionProcess;
-    private GarageDoor door;
-    private QueueNumberDisplay display;
+    
 
     /**
      * Constructor for objects of class Contoller that is initializing the
      */
 
-    public Controller(Printer printer, ExternalPaymentAuthorizationSystem paymentAuthorization, GarageDoor door, QueueNumberDisplay display, Garage garages)
+    public Controller(ExternalPaymentAuthorizationSystem paymentAuthorization)
     {
-        this.printer = printer;
         this.paymentAuthorization = paymentAuthorization;
-        this.door = door;
-        this.display = display;
     }
 
     /**
@@ -46,9 +42,7 @@ public class Controller
      */
     public void nextCustomer()
     {
-        door.open();
-        display.incrementCurrentNumber();
-        System.out.println("Current customer number is: " + display.getCurrentNumber());
+        Garage.getGarage().nextCustomer();
     }
 
     /**
@@ -56,6 +50,6 @@ public class Controller
      */
     public void closeGarageDoor()
     {
-        door.close();
+        Garage.getGarage().closeDoor();
     }
 }

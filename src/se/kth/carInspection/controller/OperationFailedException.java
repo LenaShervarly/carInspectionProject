@@ -11,6 +11,9 @@ package se.kth.carInspection.controller;
  */
 public class OperationFailedException extends Exception{
     
+    private String msg; 
+    private Exception cause;
+
     /**
      * Creates a new instance of exception with the specified message and root cause.
      * @param msg The exception message.
@@ -18,5 +21,16 @@ public class OperationFailedException extends Exception{
      */
     public OperationFailedException(String msg, Exception cause) {
         super(msg, cause);
+        this.msg = msg;
+        this.cause = cause;
+    }
+    
+    
+    public String getMsg() {
+        return msg;
+    }
+
+    public Exception getCause() {
+        return cause;
     }
 }

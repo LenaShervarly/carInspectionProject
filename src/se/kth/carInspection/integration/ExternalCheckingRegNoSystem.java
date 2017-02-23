@@ -9,14 +9,25 @@ import se.kth.carInspection.data.CarRegistrationNumbersDatabase;
  * @version 0.1
  */
 public class ExternalCheckingRegNoSystem {
+    public static final ExternalCheckingRegNoSystem extCheckSyst = new ExternalCheckingRegNoSystem();
+    
+    private ExternalCheckingRegNoSystem() {}
 
+    /**
+     * Get the only one representative of the External CheckNoDatabase
+     * @return 
+     */
+    public static ExternalCheckingRegNoSystem getExtCheckSyst() {
+        return extCheckSyst;
+    }
+    
     /**
      * Provides the information whether the provided registration number of the car exists in theSystem
      * @param regNo The registation number of the car
      * @return true if provided number is available in theSystem
      */
-    public static boolean getApprovalOfTheCarRegNo(String regNo) {
-      if(CarRegistrationNumbersDatabase.checkTheRegister(regNo))
+    public boolean getApprovalOfTheCarRegNo(String regNo) {
+      if(CarRegistrationNumbersDatabase.getCarDataBase().checkTheRegister(regNo))
           return true;
       else 
           return false;
@@ -27,10 +38,10 @@ public class ExternalCheckingRegNoSystem {
      * @param regNo the registration number of the car
      * @return the registration number of the car
      */
-    public static String getCarType(String regNo) throws IllegalLicenseNumberException {
+    public String getCarType(String regNo) throws IllegalLicenseNumberException {
         String carType = "";
         try {
-            carType = CarRegistrationNumbersDatabase.getCarType(regNo);
+            carType = CarRegistrationNumbersDatabase.getCarDataBase().getCarType(regNo);
             return carType;
         } catch(SQLException sqlExcp) {
             throw new IllegalLicenseNumberException(regNo, sqlExcp);

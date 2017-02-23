@@ -51,10 +51,7 @@ public class Payment {
     }
 
     public int getInspectionCost() {
-        InspectionRegistriesCollection inspectionRegistry = new InspectionRegistriesCollection();
-        checkingRegNo = new ExternalCheckingRegNoSystem();
-
-        productPayed = inspectionRegistry.getInspectionCollection(carType);
+        productPayed = InspectionRegistriesCollection.getInspectionRegCollection().getInspectionCollection(carType);
 
         for (InspectionDTO inspection : productPayed) {
             totalCost += inspection.getCost();
@@ -87,7 +84,7 @@ public class Payment {
     public void printReciept() {
         prepareReceiptInfo();
         completeReceiptInfo();
-        Printer.printReceipt(receipt);
+        Printer.getPtinter().printReceipt(receipt);
     }
 
 }

@@ -25,11 +25,9 @@ public class InspectionResultCollectionTest {
     public void setUp() throws Exception {
         sampleCarType = "Lada";
         sampleInspection = new InspectionDTO("Checking the seats", 350);
-        InspectionRegistriesCollection.fillSampleCollection();
         sampeInspectionRegistryLine = new InspectionRegistry(sampleCarType);
         sampeInspectionRegistryLine.setInspectionCollection(sampleInspection);
-
-        InspectionRegistriesCollection.fillCollection(sampeInspectionRegistryLine);
+        InspectionRegistriesCollection.getInspectionRegCollection().fillCollection(sampeInspectionRegistryLine);
         inspectionResultCollection = new InspectionResultCollection(sampleCarType);
     }
 

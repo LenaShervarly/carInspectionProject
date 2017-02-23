@@ -1,5 +1,6 @@
 package se.kth.carInspection.controller;
 
+import se.kth.carInspection.model.InspectionProcess;
 import se.kth.carInspection.data.CarRegistrationNumbersDatabase;
 import se.kth.carInspection.data.InspectionDTO;
 import se.kth.carInspection.data.InspectionRegistriesCollection;
@@ -29,16 +30,16 @@ public class InspectionProcessTest {
         registrationNumber1 = "A15";
         registrationNumber2 = "B29";
         inspectorWhoLogsIn = new InspectorDTO("Lena", "KTH");
-        CarRegistrationNumbersDatabase.addingLinesToDatabase(registrationNumber1, "Saab");
-        CarRegistrationNumbersDatabase.addingLinesToDatabase(registrationNumber2, "Volvo");
-        InspectionRegistriesCollection.fillSampleCollection();
+        CarRegistrationNumbersDatabase.getCarDataBase().addingLinesToDatabase(registrationNumber1, "Saab");
+        CarRegistrationNumbersDatabase.getCarDataBase().addingLinesToDatabase(registrationNumber2, "Volvo");
+        //InspectionRegistriesCollection.getInspectionRegCollection().fillSampleCollection();
 
         vehicleBeingInspected1 = new Vehicle("A15");
         vehicleBeingInspected2 = new Vehicle("B29");
         inspectionProcess = new InspectionProcess(inspectorWhoLogsIn);
 
-        carType1 = CarRegistrationNumbersDatabase.getCarType(registrationNumber1);
-        carType2 = CarRegistrationNumbersDatabase.getCarType(registrationNumber2);
+        carType1 = CarRegistrationNumbersDatabase.getCarDataBase().getCarType(registrationNumber1);
+        carType2 = CarRegistrationNumbersDatabase.getCarDataBase().getCarType(registrationNumber2);
     }
 
     @org.junit.After
@@ -59,20 +60,20 @@ public class InspectionProcessTest {
     @org.junit.Test
     public void retrieveInspections() throws Exception {
         ArrayList<InspectionDTO> inspectionsForVehicleFound1 = inspectionProcess.retrieveInspections(vehicleBeingInspected1);
-        ArrayList<InspectionDTO> inspectionsExpected1 = InspectionRegistriesCollection.getInspectionCollection(carType1);
+        ArrayList<InspectionDTO> inspectionsExpected1 = InspectionRegistriesCollection.getInspectionRegCollection().getInspectionCollection(carType1);
         assertNotNull(inspectionProcess.retrieveInspections(vehicleBeingInspected1));
-        assertNotNull(InspectionRegistriesCollection.getInspectionCollection(carType1));
+        assertNotNull(InspectionRegistriesCollection.getInspectionRegCollection().getInspectionCollection(carType1));
         assertEquals("Collections for inspections are not found", inspectionsExpected1, inspectionsForVehicleFound1);
 
         ArrayList<InspectionDTO> inspectionsForVehicleFound2 = inspectionProcess.retrieveInspections(vehicleBeingInspected2);
-        ArrayList<InspectionDTO> inspectionsExpected2 = InspectionRegistriesCollection.getInspectionCollection(carType2);
+        ArrayList<InspectionDTO> inspectionsExpected2 = InspectionRegistriesCollection.getInspectionRegCollection().getInspectionCollection(carType2);
         assertEquals("Collections for inspections are not found", inspectionsExpected2, inspectionsForVehicleFound2);
     }
 
     @org.junit.Test
     public void calculateInspectionCost() throws Exception {
         inspectionProcess.retrieveInspections(vehicleBeingInspected1);
-        assertEquals("The sum is not correct", 700, inspectionProcess.calculateInspectionCost());
+        assertEquals("The sum is not correct", 1100, inspectionProcess.calculateInspectionCost());
         
     }
 
