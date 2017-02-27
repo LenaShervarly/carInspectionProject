@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package se.kth.carInspection.controller;
+package se.kth.carInspection.model;
 
 /**
  * Thrown when an operation fails, and the reason is unknown.

@@ -16,6 +16,6 @@ public class InspectionStatsView implements InspectionResultObserver{
       
     @Override
     public void newInspectionResultCollection(InspectionResultCollection results){
-        System.out.println(results.prepareInspResultsForPrinting());
+        System.out.println(results.prepareResulsForTheScreen());
     }
 }

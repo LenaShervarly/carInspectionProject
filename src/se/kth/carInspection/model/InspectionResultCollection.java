@@ -17,6 +17,9 @@ public class InspectionResultCollection {
     private HashMap<InspectionDTO, Boolean> results;
     private ArrayList<InspectionDTO> inspectionCollection;
     private String carType;
+    private int successfulInspections;
+    private int failedInspections;
+    private InspectionResultObserver observer;
 
     
     /**
@@ -60,6 +63,8 @@ public class InspectionResultCollection {
     public void saveInspectionResult(InspectionDTO inspection, Boolean updatedResult)  {
         if(results.containsKey(inspection)) {
             results.replace(inspection, updatedResult);
+            observer = new InspectionStatsView();
+            observer.newInspectionResultCollection(this);
         } else {
             System.out.print("This inspection is not provided for the car");    
         }
@@ -85,5 +90,31 @@ public class InspectionResultCollection {
             inspectionResultsPrint.append(" - " + entry.getKey().getDesctription() + " : " + (entry.getValue() ? "pass" : "fail") + "\n");
 
         return inspectionResultsPrint;
+    }
+    
+    public StringBuffer prepareResulsForTheScreen() {
+         successfulInspections =  getSuccesInspections();
+         failedInspections = results.size()- successfulInspections;
+         StringBuffer inspectionResultsScreen = new StringBuffer();
+         inspectionResultsScreen.append("\nFor the car " + carType + " the results of inspections are: \n");
+         if(successfulInspections < 1)
+             inspectionResultsScreen.append("All the inspections failed: ");
+         else
+            inspectionResultsScreen.append(successfulInspections + " successful inspections made\n");
+         
+         if(failedInspections > 0)
+            inspectionResultsScreen.append(failedInspections + " inspections steel haven't passed(failed)\n");
+         else
+             inspectionResultsScreen.append("All the inspections passed. Well done!\n");
+         return inspectionResultsScreen;
+    }
+    
+    public int getSuccesInspections() {
+        successfulInspections = 0;
+        for(Map.Entry<InspectionDTO, Boolean> entry : results.entrySet()) {
+            if(entry.getValue().equals(true))
+                successfulInspections++;
+        }
+        return successfulInspections; 
     }
 }

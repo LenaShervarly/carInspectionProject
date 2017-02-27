@@ -35,8 +35,10 @@ public class Controller
     public void startNewInspectionProcess(InspectorDTO inspector)
     {
         inspectionProcess = new InspectionProcess(inspector);
+        System.out.println("Inspections are provided by " + inspector.getName() + "\nFrom the following inspecting company: " + inspector.getInspectionCompany() + "\n");
     }
-
+    
+    
     /**
      * Gives the number of the next customer
      */

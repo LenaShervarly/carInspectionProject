@@ -17,7 +17,6 @@ import se.kth.carInspection.model.InspectionResultCollection;
 import static java.lang.System.in;
 import java.io.InputStream;
 import se.kth.carInspection.controller.InspectorDTO;
-import se.kth.carInspection.controller.OperationFailedException;
 import se.kth.carInspection.data.InspectionRegistriesException;
 import se.kth.carInspection.integration.IllegalLicenseNumberException;
 import se.kth.carInspection.model.InspectionResultObserver;
@@ -142,8 +141,6 @@ public class InspectionProcess {
                 boolean result = scanner.nextBoolean();
                 inspectionResults.saveInspectionResult(resultsEstablishing.getKey(), result);
             }
-            observer = new InspectionStatsView();
-            observer.newInspectionResultCollection(inspectionResults);
         }
     }
 

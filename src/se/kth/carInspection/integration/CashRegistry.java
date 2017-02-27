@@ -6,9 +6,13 @@ import se.kth.carInspection.model.CashPayment;
 public class CashRegistry {
 
     private int balance;
+    private static final CashRegistry cashRegistry = new CashRegistry();
 
-    public CashRegistry() {
-        
+    public static CashRegistry getCashRegistry() {
+        return cashRegistry;
+    }
+            
+    private CashRegistry() {
     }
 
     public void addAmount(int finalPayment) {

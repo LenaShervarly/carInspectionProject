@@ -25,7 +25,6 @@ public class Main {
     
     public static void main(String[] args) {
         
-        CashRegistry cashRegister = new CashRegistry();
         ExternalPaymentAuthorizationSystem externalAuthorSyst = new ExternalPaymentAuthorizationSystem();
         
         

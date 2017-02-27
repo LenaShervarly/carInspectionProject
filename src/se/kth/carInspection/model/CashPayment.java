@@ -8,33 +8,30 @@ import java.util.ArrayList;
 public class CashPayment {
     private int amountPaid;
     private int totalCost;
-    private CashRegistry cashRegistry;
 
     public CashPayment(int amountPaid,int totalCost) {
         this.amountPaid = amountPaid;
         this.totalCost=totalCost;
     }
 
-    public int getChange() {
-
+    private int getChange() {
         int change = totalCost - amountPaid;
         return change;
     }
 
-    public void updateCashPresent() {
+    private void updateCashPresent() {
 
-        cashRegistry.addAmount(totalCost);
+        CashRegistry.getCashRegistry().addAmount(totalCost);
+        System.out.println("The cash present updated\n");
     }
 
-    public int payCash() {
+    public void payCash() {
         int change = getChange();
         updateCashPresent();
-        return change;
-        
-
     }
+    
     public String getPaymentInfo(){
-        String info="The change: "+getChange();
+        String info = "The change: " + getChange();
         return info;
     }
  }

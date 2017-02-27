@@ -1,9 +1,7 @@
-On the 4 of 1.117 at 11:58:7
+On the 1 of 1.117 at 15:52:11
 Error message was thrown: null because of null
-java.util.InputMismatchException
-	at java.util.Scanner.throwFor(Scanner.java:864)
-	at java.util.Scanner.next(Scanner.java:1485)
-	at java.util.Scanner.nextBoolean(Scanner.java:1782)
-	at se.kth.carInspection.controller.InspectionProcess.inspect(InspectionProcess.java:136)
-	at se.kth.carInspection.view.View.sampleExecution(View.java:48)
-	at se.kth.carInspection.startUp.Main.main(Main.java:40)
+java.lang.NullPointerException
+	at se.kth.carInspection.controller.Payment.getTotalCostAfterDiscount(Payment.java:68)
+	at se.kth.carInspection.controller.Payment.pay(Payment.java:40)
+	at se.kth.carInspection.view.View.sampleExecution(View.java:52)
+	at se.kth.carInspection.startUp.Main.main(Main.java:34)
