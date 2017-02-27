@@ -26,17 +26,7 @@ public class PromotingPaymentAndCarType implements IPriceMatcher{
    @Override
    public int bestPrice(String carTypeActual, PaymentType paymentTypeActual) {
        int discount = 0;
-       if(paymentTypeActual.equals(promotingPaymentType)) {
-           PromotingPaymentType promotion =  new PromotingPaymentType();
-           promotion.setPromotingPaymentType(promotingPaymentType);
-           discount = promotion.bestPrice(carTypeActual, paymentTypeActual);
-       }
-       else if(carTypeActual.equals(carTypeToPromote)) {
-           PromotingCarPricing promotion = new PromotingCarPricing();
-           promotion.setCarTypeToPromote(carTypeToPromote);
-           discount =  promotion.bestPrice(carTypeActual, paymentTypeActual);
-       }
-       else if(paymentTypeActual.equals(promotingPaymentType) && carTypeActual.equals(carTypeToPromote)){
+       if(paymentTypeActual.equals(promotingPaymentType) && carTypeActual.equals(carTypeToPromote)){
            discount = 20;
        }  
        return discount;

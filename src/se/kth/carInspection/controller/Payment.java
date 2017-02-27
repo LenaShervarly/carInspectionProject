@@ -18,7 +18,7 @@ public class Payment {
     private String receipt;
     private CashPayment cashPayment;
     private CreditCardPayment creditCardPayment;
-    private PromotingPaymentAndCarType discountCalculator;
+    private IPriceMatcher discountCalculator;
 
     public Payment(PaymentType paymentType, Vehicle carBeingServed) throws OperationFailedException {
         this.paymentType = paymentType;
@@ -63,10 +63,8 @@ public class Payment {
     private int getTotalCostAfterDiscount() {
         totalCost = getTotalCost();
         
-        discountCalculator = new PromotingPaymentAndCarType();
-        discountCalculator.setCarTypeToPromote("Volvo");
-        discountCalculator.setPromotingPaymentType(PaymentType.CASH);
-        
+        discountCalculator = PricingFactory.getPricingFactory().getBestMatcher(carType, paymentType);
+                
         int discount = discountCalculator.bestPrice(carType, paymentType);
         totalCost = totalCost- (totalCost * discount / 100);  
         return totalCost;
